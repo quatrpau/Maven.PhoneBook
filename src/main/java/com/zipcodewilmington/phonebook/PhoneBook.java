@@ -1,11 +1,9 @@
 package com.zipcodewilmington.phonebook;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.Collectors;
 //import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+
 
 /**
  * Created by leon on 1/23/18.
@@ -16,39 +14,52 @@ public class PhoneBook {
     private final Map<String, List<String>> phonebook;
 
     public PhoneBook(Map<String, List<String>> map) {
-        this.phonebook = null;
+        this.phonebook = map;
     }
 
     public PhoneBook() {
-        this(null);
+        this.phonebook = new HashMap<>();
     }
 
     public void add(String name, String phoneNumber) {
+        this.phonebook.put(name,Collections.singletonList(phoneNumber));
     }
 
     public void addAll(String name, String... phoneNumbers) {
+        this.phonebook.put(name,new ArrayList<>(Arrays.asList(phoneNumbers)));
     }
 
     public void remove(String name) {
+        this.phonebook.remove(name);
     }
 
     public Boolean hasEntry(String name) {
-        return null;
+        return this.phonebook.containsKey(name);
     }
-
+    public Boolean hasEntry(String name,String phoneNumber){
+        return this.phonebook.containsKey(name) &&  this.phonebook.get(name).contains(phoneNumber);
+    }
     public List<String> lookup(String name) {
-        return null;
+        return this.phonebook.get(name);
     }
 
     public String reverseLookup(String phoneNumber)  {
-        return null;
+        String n;
+        for(String pn :this.phonebook.keySet()){
+            if(this.phonebook.get(pn).contains(phoneNumber)){
+                return pn;
+            }
+        }
+        return "";
     }
 
     public List<String> getAllContactNames() {
-        return null;
+        List<String> list = new ArrayList<>();
+        this.phonebook.forEach((n,a) -> {list.add(n);});
+        return list;
     }
 
     public Map<String, List<String>> getMap() {
-        return null;
+        return this.phonebook;
     }
 }
