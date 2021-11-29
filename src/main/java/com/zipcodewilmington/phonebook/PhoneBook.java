@@ -18,7 +18,7 @@ public class PhoneBook {
     }
 
     public PhoneBook() {
-        this.phonebook = new HashMap<>();
+        this.phonebook = new LinkedHashMap<>();
     }
 
     public void add(String name, String phoneNumber) {
@@ -26,7 +26,7 @@ public class PhoneBook {
     }
 
     public void addAll(String name, String... phoneNumbers) {
-        this.phonebook.put(name,new ArrayList<>(Arrays.asList(phoneNumbers)));
+        this.phonebook.put(name,new LinkedList<>(Arrays.asList(phoneNumbers)));
     }
 
     public void remove(String name) {
@@ -54,7 +54,7 @@ public class PhoneBook {
     }
 
     public List<String> getAllContactNames() {
-        List<String> list = new ArrayList<>();
+        List<String> list = new LinkedList<>();
         this.phonebook.forEach((n,a) -> {list.add(n);});
         return list;
     }
